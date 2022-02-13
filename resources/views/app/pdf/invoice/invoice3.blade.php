@@ -239,6 +239,7 @@
         }
 
         .notes-label {
+            display: none;
             font-size: 15px;
             line-height: 22px;
             letter-spacing: 0.05em;
@@ -304,6 +305,16 @@
         .pl-0 {
             padding-left: 0;
         }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -367,14 +378,21 @@
 
         @include('app.pdf.invoice.partials.table')
 
+        <br>
+        <br>
+        <br>
         <div class="notes">
             @if($notes)
                 <div class="notes-label">
                     @lang('pdf_notes')
+                <br>
                 </div>
 
                 {!! $notes !!}
             @endif
+        </div>
+        <div class="footer">
+            <p>Footer</p>
         </div>
     </div>
 </body>

@@ -60,6 +60,7 @@ class Invoice extends Model implements HasMedia
     protected $appends = [
         'formattedCreatedAt',
         'formattedInvoiceDate',
+        'formattedInvoicePerfPeriod',
         'formattedDueDate',
         'invoicePdfUrl',
     ];
@@ -185,6 +186,13 @@ class Invoice extends Model implements HasMedia
         $dateFormat = CompanySetting::getSetting('carbon_date_format', $this->company_id);
 
         return Carbon::parse($this->invoice_date)->format($dateFormat);
+    }
+
+    public function getFormattedInvoicePerfPeriodAttribute($value)
+    {
+        $dateFormat = CompanySetting::getSetting('carbon_date_format', $this->company_id);
+
+        return Carbon::parse($this->invoice_date)->format("m.Y");
     }
 
     public function scopeWhereStatus($query, $status)
@@ -640,6 +648,7 @@ class Invoice extends Model implements HasMedia
     {
         return [
             '{INVOICE_DATE}' => $this->formattedInvoiceDate,
+            '{INVOICE_PERF_PERIOD}' => $this->formattedInvoicePerfPeriod,
             '{INVOICE_DUE_DATE}' => $this->formattedDueDate,
             '{INVOICE_NUMBER}' => $this->invoice_number,
             '{INVOICE_REF_NUMBER}' => $this->reference_number,

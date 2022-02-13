@@ -48,6 +48,7 @@ class InvoiceResource extends JsonResource
             'formatted_created_at' => $this->formattedCreatedAt,
             'invoice_pdf_url' => $this->invoicePdfUrl,
             'formatted_invoice_date' => $this->formattedInvoiceDate,
+            'formatted_invoice_perf_period' => $this->formattedInvoicePerfPeriod,
             'formatted_due_date' => $this->formattedDueDate,
             'payment_module_enabled' => $this->payment_module_enabled,
             'items' => $this->when($this->items()->exists(), function () {

@@ -194,6 +194,7 @@ async function getFields() {
         fields: [
           { label: 'Date', value: 'INVOICE_DATE' },
           { label: 'Due Date', value: 'INVOICE_DUE_DATE' },
+          { label: 'Perf Period', value: 'INVOICE_PERF_PERIOD' },
           { label: 'Number', value: 'INVOICE_NUMBER' },
           { label: 'Ref Number', value: 'INVOICE_REF_NUMBER' },
           { label: 'Invoice Link', value: 'INVOICE_LINK' },
