@@ -2,11 +2,12 @@
 <html>
 
 <head>
-    <title>@lang('pdf_invoice_label') - {{ $invoice->invoice_number }}</title>
+    <title>@lang('pdf_invoice_label') - {{$invoice->invoice_number}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <style type="text/css">
         /* -- Base -- */
+
         body {
             font-family: "DejaVu Sans";
         }
@@ -15,118 +16,78 @@
             margin: 0px;
             padding: 0px;
             margin-top: 50px;
-
         }
 
-        .text-center {
-            text-align: center;
+        table {
+            border-collapse: collapse;
         }
 
         hr {
-            margin: 0 30px 0 30px;
             color: rgba(0, 0, 0, 0.2);
             border: 0.5px solid #EAF1FB;
         }
 
         /* -- Header -- */
 
-        .header-bottom-divider {
-            color: rgba(0, 0, 0, 0.2);
-            top: 90px;
-            left: 0px;
-            width: 100%;
-            margin-left: 0%;
-
-        }
-
         .header-container {
-            position: absolute;
+            margin-top: -30px;
             width: 100%;
-            height: 90px;
-            left: 0px;
-            top: -50px;
+            padding: 0px 30px;
         }
 
         .header-logo {
-            margin-top: 20px;
-            padding-bottom: 20px;
+
             text-transform: capitalize;
             color: #817AE3;
-
-        }
-
-        .header {
-            font-size: 20px;
-            color: rgba(0, 0, 0, 0.7);
-        }
-
-        .content-wrapper {
-            display: block;
-            margin-top: 0px;
-            padding-top: 16px;
-            padding-bottom: 20px;
+            padding-top: 0px;
         }
 
         .company-address-container {
-            padding-top: 15px;
-            padding-left: 30px;
-            float: left;
-            width: 30%;
+            width: 50%;
             margin-bottom: 2px;
-        }
-
-        .company-address-container h1 {
-            font-size: 15px;
-            line-height: 22px;
-            letter-spacing: 0.05em;
-            margin-bottom: 0px;
-            margin-top: 10px;
+            padding-right: 60px;
         }
 
         .company-address {
-            margin-top: 16px;
-            text-align: left;
+            margin-top: 12px;
             font-size: 12px;
             line-height: 15px;
             color: #595959;
-            width: 280px;
             word-wrap: break-word;
         }
 
-        .invoice-details-container {
-            float: right;
-            padding: 10px 30px 0 0;
-            margin-top: 18px;
+        /* -- Content Wrapper  */
+
+        .content-wrapper {
+            display: block;
+            padding-top: 0px;
+            padding-bottom: 20px;
         }
 
-        .attribute-label {
-            font-size: 12px;
-            line-height: 18px;
-            padding-right: 40px;
-            text-align: left;
-            color: #55547A;
-        }
-
-        .attribute-value {
-            font-size: 12px;
-            line-height: 18px;
-            text-align: right;
+        .customer-address-container {
+            display: block;
+            float: left;
+            width: 45%;
+            padding: 10px 0 0 30px;
         }
 
         /* -- Shipping -- */
-
         .shipping-address-container {
             float: right;
-            padding-left: 40px;
-            width: 160px;
+            display: block;
+        }
+
+        .shipping-address-container--left {
+            float: left;
+            display: block;
+            padding-left: 0;
         }
 
         .shipping-address {
-            font-size: 12px;
+            font-size: 10px;
             line-height: 15px;
             color: #595959;
-            padding: 45px 0px 0px 40px;
-            margin: 0px;
+            margin-top: 5px;
             width: 160px;
             word-wrap: break-word;
         }
@@ -134,35 +95,38 @@
         /* -- Billing -- */
 
         .billing-address-container {
-            padding-top: 50px;
+            display: block;
             float: left;
-            padding-left: 30px;
-        }
-
-        .billing-address-label {
-            font-size: 12px;
-            line-height: 18px;
-            padding: 0px;
-            margin-top: 27px;
-            margin-bottom: 0px;
-        }
-
-        .billing-address-name {
-            max-width: 160px;
-            font-size: 15px;
-            line-height: 22px;
-            padding: 0px;
-            margin: 0px;
         }
 
         .billing-address {
-            font-size: 12px;
+            font-size: 10px;
             line-height: 15px;
             color: #595959;
-            padding: 45px 0px 0px 30px;
-            margin: 0px;
+            margin-top: 5px;
             width: 160px;
             word-wrap: break-word;
+        }
+
+        /*  -- Estimate Details -- */
+
+        .invoice-details-container {
+            display: block;
+            float: right;
+            padding: 10px 30px 0 0;
+        }
+
+        .attribute-label {
+            font-size: 12px;
+            line-height: 18px;
+            text-align: left;
+            color: #55547A
+        }
+
+        .attribute-value {
+            font-size: 12px;
+            line-height: 18px;
+            text-align: right;
         }
 
         /* -- Items Table -- */
@@ -211,14 +175,19 @@
             line-height: 12px;
         }
 
+        .item-cell-table-hr {
+            margin: 0 30px 0 30px;
+        }
+
         /* -- Total Display Table -- */
 
         .total-display-container {
             padding: 0 25px;
         }
 
+
         .total-display-table {
-            border-top: none;
+             border-top: none;
             page-break-inside: avoid;
             page-break-before: auto;
             page-break-after: auto;
@@ -228,7 +197,7 @@
         }
 
         .total-table-attribute-label {
-            font-size: 13px;
+            font-size: 12px;
             color: #55547A;
             text-align: left;
             padding-left: 10px;
@@ -237,7 +206,7 @@
         .total-table-attribute-value {
             font-weight: bold;
             text-align: right;
-            font-size: 13px;
+            font-size: 12px;
             color: #040405;
             padding-right: 10px;
             padding-top: 2px;
@@ -259,7 +228,6 @@
         }
 
         /* -- Notes -- */
-
         .notes {
             font-size: 12px;
             color: #595959;
@@ -271,6 +239,7 @@
         }
 
         .notes-label {
+            display: none;
             font-size: 15px;
             line-height: 22px;
             letter-spacing: 0.05em;
@@ -287,6 +256,9 @@
             color: #5851DB;
         }
 
+        .text-center {
+            text-align: center
+        }
 
         table .text-left {
             text-align: left;
@@ -334,6 +306,15 @@
             padding-left: 0;
         }
 
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -341,75 +322,77 @@
     <div class="header-container">
         <table width="100%">
             <tr>
-                <td class="text-center">
-                    @if ($logo)
-                        <img class="header-logo" style="height:50px" src="{{ $logo }}" alt="Company Logo">
+                <td width="50%" class="header-section-left">
+                    @if($logo)
+                    <img class="header-logo" style="height: 50px;" src="{{ $logo }}" alt="Company Logo">
                     @else
-                        @if ($invoice->customer->company)
-                            <h2 class="header-logo"> {{ $invoice->customer->company->name }}</h2>
-                        @endif
+                    <h1 class="header-logo"> {{$invoice->customer->company->name}} </h1>
                     @endif
+                </td>
+                <td width="50%" class="text-right company-address-container company-address">
+                    {!! $company_address !!}
                 </td>
             </tr>
         </table>
-        <hr class="header-bottom-divider" style="border: 0.620315px solid #E8E8E8;" />
     </div>
 
+    <hr class="header-bottom-divider">
 
     <div class="content-wrapper">
-        <div style="padding-top: 30px">
-            <div class="company-address-container company-address">
-                {!! $company_address !!}
+        <div class="main-content">
+            <div class="customer-address-container">
+                <div class="billing-address-container billing-address">
+                    @if($billing_address)
+                        <b>@lang('pdf_bill_to')</b> <br>
+                        {!! $billing_address !!}
+                    @endif
+                </div>
+
+                <div @if($billing_address !== '</br>') class="shipping-address-container shipping-address" @else class="shipping-address-container--left shipping-address" @endif>
+                    @if($shipping_address)
+                        <b>@lang('pdf_ship_to')</b> <br>
+                        {!! $shipping_address !!}
+                    @endif
+                </div>
+                <div style="clear: both;"></div>
             </div>
 
             <div class="invoice-details-container">
                 <table>
                     <tr>
                         <td class="attribute-label">@lang('pdf_invoice_number')</td>
-                        <td class="attribute-value"> &nbsp;{{ $invoice->invoice_number }}</td>
+                        <td class="attribute-value"> &nbsp;{{$invoice->invoice_number}}</td>
                     </tr>
                     <tr>
                         <td class="attribute-label">@lang('pdf_invoice_date')</td>
-                        <td class="attribute-value"> &nbsp;{{ $invoice->formattedInvoiceDate }}</td>
+                        <td class="attribute-value"> &nbsp;{{$invoice->formattedInvoiceDate}}</td>
                     </tr>
                     <tr>
                         <td class="attribute-label">@lang('pdf_invoice_due_date')</td>
-                        <td class="attribute-value"> &nbsp;{{ $invoice->formattedDueDate }}</td>
+                        <td class="attribute-value"> &nbsp;{{$invoice->formattedDueDate}}</td>
                     </tr>
                 </table>
             </div>
-
             <div style="clear: both;"></div>
         </div>
 
-        <div class="billing-address-container billing-address">
-            @if ($billing_address)
-                <b>@lang('pdf_bill_to')</b> <br>
+        @include('app.pdf.invoice.partials.table')
 
-                {!! $billing_address !!}
-            @endif
-        </div>
-
-        <div class="shipping-address-container shipping-address" @if ($billing_address !== '</br>') style="float:left;" @else style="display:block; float:left: padding-left: 0px;" @endif>
-            @if ($shipping_address)
-                <b>@lang('pdf_ship_to')</b> <br>
-
-                {!! $shipping_address !!}
-            @endif
-        </div>
-
-        <div style="position: relative; clear: both;">
-            @include('app.pdf.invoice.partials.table')
-        </div>
-
+        <br>
+        <br>
+        <br>
         <div class="notes">
-            @if ($notes)
+            @if($notes)
                 <div class="notes-label">
                     @lang('pdf_notes')
+                <br>
                 </div>
 
                 {!! $notes !!}
             @endif
+        </div>
+        <div class="footer">
+            <p>Footer</p>
         </div>
     </div>
 </body>
